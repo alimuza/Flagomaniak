@@ -2,12 +2,10 @@ C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\bin\Debug\Flagomaniak.exe.config
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\bin\Debug\Flagomaniak.exe
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\bin\Debug\Flagomaniak.pdb
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.csprojResolveAssemblyReference.cache
-C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\GameWindow.g.cs
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\MainWindow.g.cs
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\App.g.cs
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak_MarkupCompile.cache
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak_MarkupCompile.lref
-C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\GameWindow.baml
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\MainWindow.baml
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.g.resources
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.Properties.Resources.resources
@@ -15,6 +13,28 @@ C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.csproj.Genera
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.csproj.CoreCompileInputs.cache
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.exe
 C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.pdb
-C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\bin\Debug\Microsoft.Maps.MapControl.WPF.dll
-C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
-C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.csproj.CopyComplete
+C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\PlayerWindow.g.cs
+C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\PlayerWindow.baml
+C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\UserName.g.cs
+C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\UserName.baml
+C:\Users\Ada\Desktop\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak_Content.g.cs
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\bin\Debug\Flagomaniak.exe.config
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\bin\Debug\Flagomaniak.exe
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\bin\Debug\Flagomaniak.pdb
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.csprojResolveAssemblyReference.cache
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\MainWindow.baml
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\MainWindow.g.cs
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\PlayerWindow.g.cs
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\UserName.g.cs
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\App.g.cs
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak_Content.g.cs
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak_MarkupCompile.cache
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak_MarkupCompile.lref
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\PlayerWindow.baml
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\UserName.baml
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.g.resources
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.Properties.Resources.resources
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.csproj.GenerateResource.cache
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.csproj.CoreCompileInputs.cache
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.exe
+C:\różne\PROJEKTY JPWP\Flagomaniak\Flagomaniak\obj\Debug\Flagomaniak.pdb

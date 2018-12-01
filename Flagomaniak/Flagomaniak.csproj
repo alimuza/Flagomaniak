@@ -34,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Maps.MapControl.WPF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Maps.MapControl.WPF.1.0.0.3\lib\net40-Client\Microsoft.Maps.MapControl.WPF.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -57,10 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="GameWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="UserName.xaml.cs">
+      <DependentUpon>UserName.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,16 +68,27 @@
     <Compile Include="Continents\Continent.cs" />
     <Compile Include="Continents\ContinentCollection.cs" />
     <Compile Include="Continents\Country.cs" />
+    <Compile Include="GameBoard\BorderChecker.cs" />
     <Compile Include="GameBoard\Game.cs" />
-    <Compile Include="GameWindow.xaml.cs">
-      <DependentUpon>GameWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="GameUsers\User.cs" />
+    <Compile Include="GameUsers\Users.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PlayerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PlayerWindow.xaml.cs">
+      <DependentUpon>PlayerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,7 +106,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -120,47 +126,72 @@
     <Resource Include="Resources\Images\Flags\Europe\Austria.png" />
     <Resource Include="Resources\Images\Flags\Europe\Belgia.png" />
     <Resource Include="Resources\Images\Flags\Europe\Białoruś.png" />
-    <Resource Include="Resources\Images\Flags\Europe\BosniaHercegowina.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Bulgaria.png" />
     <Resource Include="Resources\Images\Flags\Europe\Chorwacja.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Czarnogora.png" />
     <Resource Include="Resources\Images\Flags\Europe\Czechy.png" />
     <Resource Include="Resources\Images\Flags\Europe\Dania.png" />
     <Resource Include="Resources\Images\Flags\Europe\Estonia.png" />
     <Resource Include="Resources\Images\Flags\Europe\Finlandia.png" />
     <Resource Include="Resources\Images\Flags\Europe\Francja.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Gracja.png" />
     <Resource Include="Resources\Images\Flags\Europe\Hiszpania.png" />
     <Resource Include="Resources\Images\Flags\Europe\Holandia.png" />
     <Resource Include="Resources\Images\Flags\Europe\Irlandia.png" />
     <Resource Include="Resources\Images\Flags\Europe\Islandia.png" />
     <Resource Include="Resources\Images\Flags\Europe\Kosowo.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Lichtenstain.png" />
     <Resource Include="Resources\Images\Flags\Europe\Litwa.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Lotwa.png" />
     <Resource Include="Resources\Images\Flags\Europe\Luksemburg.png" />
     <Resource Include="Resources\Images\Flags\Europe\Macedonia.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Malta.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Moldawia.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Monako.png" />
     <Resource Include="Resources\Images\Flags\Europe\Niemcy.png" />
     <Resource Include="Resources\Images\Flags\Europe\Norwegia.png" />
     <Resource Include="Resources\Images\Flags\Europe\Polska.png" />
     <Resource Include="Resources\Images\Flags\Europe\Portugalia.png" />
     <Resource Include="Resources\Images\Flags\Europe\Rosja.png" />
     <Resource Include="Resources\Images\Flags\Europe\Rumunia.png" />
-    <Resource Include="Resources\Images\Flags\Europe\SanMarino.png" />
     <Resource Include="Resources\Images\Flags\Europe\Serbia.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Slowacja.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Slowenia.png" />
     <Resource Include="Resources\Images\Flags\Europe\Szwajcaria.png" />
     <Resource Include="Resources\Images\Flags\Europe\Szwecja.png" />
     <Resource Include="Resources\Images\Flags\Europe\Turcja.png" />
     <Resource Include="Resources\Images\Flags\Europe\Ukraina.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Watykan.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Wegry.png" />
-    <Resource Include="Resources\Images\Flags\Europe\WielkaBrytania.png" />
-    <Resource Include="Resources\Images\Flags\Europe\Wlochy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Flags\Europe\Włochy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Flags\Europe\Lichtenstein.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Flags\Europe\Wielka Brytania.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Flags\Europe\Łotwa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Flags\Europe\Mołdawia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Flags\Europe\Bułgaria.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Flags\Europe\Czarnogóra.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Flags\Europe\Bośnia i Hercegowina.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Flags\Europe\Słowenia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Flags\Europe\Węgry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Flags\Europe\Grecja.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Flags\Europe\Słowacja.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Sounds\Click.wav" />
+    <Content Include="Resources\Sounds\Click2.wav" />
+    <Content Include="Resources\Sounds\winer.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
