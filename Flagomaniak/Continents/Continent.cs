@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Flagomaniak.Continents
 {
@@ -27,7 +22,7 @@ namespace Flagomaniak.Continents
         /// </summary>
         private List<Country> _countries;
 
-        ///<value>Zwraca nazwę kontynentu.</value>
+        /// <value>Zwraca nazwę kontynentu.</value>
         public string Name => _name;
 
         /// <value>Zwraca ścieżkę dostępu do pliku z mapą kontynentu.</value>

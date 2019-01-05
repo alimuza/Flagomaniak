@@ -6,35 +6,49 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Linq;
-
 
 namespace Flagomaniak
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logika interakcji z głównym oknem gry.
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Klasa opisująca zachowanie się gry.
+        /// </summary>
         private Game _game;
 
+        /// <summary>
+        /// Odtwarzacz dźwięków w grze.
+        /// </summary>
+        private MediaPlayer _sound;
+
+        /// <summary>
+        /// Konstruktor klasy.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
             _game = new Game();
-            _game.NewContinent();
+            _sound = new MediaPlayer();
+            _game.NewGame();
             this.DataContext = _game;
 
-   
-         
             coutriesNames.ItemsSource = _game.Names;
             coutriesFlags.ItemsSource = _game.Flags;
-           
         }
 
+        /// <summary>
+        /// Lista, z której elementy są przeciągane na mapę przez użytkownika.
+        /// </summary>
         ListBox source;
 
-     
+        /// <summary>
+        /// Funkcja obsługująca zdarzenie kliknięcia myszką na listę zawierającą flagi bądź nazwy państw.
+        /// </summary>
+        /// <param name="sender">Obiekt wywołujący zdarzenie.</param>
+        /// <param name="e">Informacje o zdarzeniu.</param>
         private void coutriesNames_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ListBox parent = (ListBox)sender;
@@ -46,41 +60,43 @@ namespace Flagomaniak
  
         }
 
-
+        /// <summary>
+        /// Funkcja zwracająca kliknięty element listy.
+        /// </summary>
+        /// <param name="source">Lista z obiektami.</param>
+        /// <param name="point">Punkt, w którym kliknięto na listę.</param>
+        /// <returns>Dane z listy.</returns>
         private static object GetDataFromListBox(ListBox source, Point point)
         {
-            UIElement element = source.InputHitTest(point) as UIElement;
-            if (element != null)
+            UIElement elem = source.InputHitTest(point) as UIElement;
+            if (elem != null)
             {
-                object data = DependencyProperty.UnsetValue;
-                while (data == DependencyProperty.UnsetValue)
+                object result = DependencyProperty.UnsetValue;
+                while (result == DependencyProperty.UnsetValue)
                 {
-                    data = source.ItemContainerGenerator.ItemFromContainer(element);
+                    result = source.ItemContainerGenerator.ItemFromContainer(elem);
 
-                    if (data == DependencyProperty.UnsetValue)
-                        element = VisualTreeHelper.GetParent(element) as UIElement;
+                    if (result == DependencyProperty.UnsetValue)
+                        elem = VisualTreeHelper.GetParent(elem) as UIElement;
 
-                    if (element == source)
+                    if (elem == source)
                         return null;
                 }
 
-                if (data != DependencyProperty.UnsetValue)
-                    return data;
+                if (result != DependencyProperty.UnsetValue)
+                    return result;
             }
             return null;
         }
 
-        private void test_Drop(object sender, DragEventArgs e)
-        {
-            ListBox parent = (ListBox)sender;
-            object data = e.Data.GetData(typeof(string));
-
-            parent.Items.Add(data);
-            ((IList<string>)source.ItemsSource).Remove((string)data);            
-        }
-
+        /// <summary>
+        /// Funkcja obsługująca zdarzenie upuszczenia elementu na mapę. Dodaje do mapy flagę bądź nazwę kraju.
+        /// </summary>
+        /// <param name="sender">Obiekt wywołujący zdarzenie.</param>
+        /// <param name="e">Informacje o zdarzeniu.</param>
         private void map_Drop(object sender, DragEventArgs e)
         {
+            string countryName = " ";
             object data = e.Data.GetData(typeof(string));
             Point p = e.GetPosition(map);
 
@@ -92,111 +108,144 @@ namespace Flagomaniak
                 flag.UriSource = new Uri((string)data, UriKind.Relative);
                 flag.EndInit();
                 img.Source = flag;
-                img.Width = 40;
-                img.Height = 30;
-                Canvas.SetLeft(img, p.X - 20);
-                Canvas.SetTop(img, p.Y - 15);
+                img.Width = 25;
+                img.Height = 15;
+                Canvas.SetLeft(img, p.X - 12.5);
+                Canvas.SetTop(img, p.Y - 7.5);
                 map.Children.Add(img);
+                int index = flag.UriSource.ToString().LastIndexOf('/');
+                countryName = flag.UriSource.ToString().Remove(0, index +1).Replace(".png", "");
             }
 
             if (source == coutriesNames)
             {
                 Label label = new Label();
                 label.Content = (string)data;
-                Canvas.SetLeft(label, p.X - 20);
-                Canvas.SetTop(label, p.Y - 15);
+                label.FontSize = 9;
+                Canvas.SetLeft(label, p.X - 12.5);
+                Canvas.SetTop(label, p.Y - 7.5);
                 map.Children.Add(label);
+                countryName = (string)data;
             }
 
-            //zrobić tak żeby położenie się zgadzało tam gdzie upuszczę flagę!!!! 
             ((IList<string>)source.ItemsSource).Remove((string)data);
 
-
-            //sprawdzam czy jest label dobrze dodany
-            CheckBoxIfPoland("Poland", p);
+            _sound.Open(new Uri(@"../../Resources/Sounds/Click2.wav", UriKind.Relative));
+            _sound.Play();
+            //Sprawdzenie, czy element został dodany w odpowiednim miejscu na mapie.
+            _game.CheckAnswer(countryName, p, map.ActualWidth, map.ActualHeight);
         }
 
-        
+        /// <summary>
+        /// Domyślne powiększenie mapy.
+        /// </summary>
+        double zoom = 1;
+        /// <summary>
+        /// Minimalne powiększenie mapy.
+        /// </summary>
+        double zoomMin = 1;
+        /// <summary>
+        /// Maksymalne powiększenie mapy.
+        /// </summary>
+        double zoomMax = 6;
 
-
-
-
-        //accual rendered size of map
-        private void CheckSize()
+        /// <summary>
+        /// Funkcja obsługująca powiększanie i pomniejszanie mapy.
+        /// </summary>
+        /// <param name="sender">Obiekt wywołujący zdarzenie.</param>
+        /// <param name="e">Informacje o zdarzeniu.</param>
+        private void map_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            double width = map.ActualHeight;
-            double height = map.ActualWidth;
+            Point p = e.GetPosition(map);  
+            double rate = 0.01;
+            zoom += rate * e.Delta;
+            if (zoom < zoomMin)
+                zoom = zoomMin;
+            if (zoom > zoomMax)
+                zoom = zoomMax;
 
-            MessageBox.Show($"Width: {width} Height: {height}");
-        }
-
-        //try to check correct aswer
-        private void CheckBoxIfPoland(string name, Point p)
-        {
-            
-            string coordinates = _game.Continents.Find(c => c.Name == "Europa").Countries.Find(c => c.Name == "Polska").Coordinates;
-
-            //zamienić te wpółrzędne jakoś do densownej fomy i sprawdzić czy punkt gdzie 
-            //włorzyłam flagę/label jest w środku tych wpółrzędnych
-            //i od razu po kilknięciu to sprawdzać, a punkty wyświetlać na końcu
-            //zapisywać sobie wyniki do jakiegoś góna i dobre podświtlac na zielono, a złe wyniki na czerwono
-
-            //wyskubanie danych z tego stringa głuipego, debilnego
-            //ale ten projekt jest debilny, mogłam go nie brać wogóle
-            bool isPoland = true;
-
-            var cor = coordinates.Replace('C', ' ').Split(' ').Skip(2).Reverse().Skip(1);
-
-            List<Point> polygon = new List<Point>();
-            //tzreba przeskalować współrzędne tego karju do rozmiaru CANVAS!!!
-
-            //wpółrzędne jako liczby
-            foreach(var c in cor)
+            if (e.Delta > 0)
             {
-                if (c == "")
-                    continue;
-
-                var point = c.Split(',');
-
-                polygon.Add(new Point(double.Parse(point[0].Replace('.', ',')), 
-                                       double.Parse(point[0].Replace('.', ','))));
-              
+                map.RenderTransform = new ScaleTransform(zoom, zoom, p.X, p.Y);
             }
-
-            MessageBox.Show($"X: {p.X}, Y: {p.Y}");
-            isPoland = IsInPolygon(p, polygon);
-
-            if (isPoland == true)
-                MessageBox.Show("Yes it is Poland!!!!");
             else
-                MessageBox.Show("this is not Poland!!!");
-        }
-
-        public static bool IsInPolygon(Point point, List<Point> polygon)
-        {
-            bool result = false;
-            var a = polygon.Last();
-            foreach (var b in polygon)
             {
-                if ((b.X == point.X) && (b.Y == point.Y))
-                    return true;
-
-                if ((b.Y == a.Y) && (point.Y == a.Y) && (a.X <= point.X) && (point.X <= b.X))
-                    return true;
-
-                if ((b.Y < point.Y) && (a.Y >= point.Y) || (a.Y < point.Y) && (b.Y >= point.Y))
-                {
-                    if (b.X + (point.Y - b.Y) / (a.Y - b.Y) * (a.X - b.X) <= point.X)
-                        result = !result;
-                }
-                a = b;
+                map.RenderTransform = new ScaleTransform(zoom, zoom, p.X, p.Y);
             }
-            return result;
+          
         }
 
+        /// <summary>
+        /// Funkcja wywołująca się po naciśnięciu przycisku sprawdź.
+        /// </summary>
+        /// <param name="sender">Obiekt wywołujący zdarzenie.</param>
+        /// <param name="e">Informacje o zdarzeniu.</param>
+        private void btnCheckAnswer_Click(object sender, RoutedEventArgs e)
+        {
+            if(_game.Names.Count != 0 || _game.Flags.Count != 0)
+            {
+                MessageBox.Show("Wciąż masz flagi lub nazwy państw do dopasowania!");
+                return;
+            }
 
+            map.AllowDrop = false;
+            undo.IsHitTestVisible = false;
+            btnCheckAnswer.IsEnabled = false;
 
+            _game.GetFinalScore(map.Children); 
+            lblPoints.Visibility = Visibility.Visible;
+            if(_game.Points == 1000)
+            {
+                _sound.Open(new Uri(@"../../Resources/Sounds/winer.wav", UriKind.Relative));
+                _sound.Play();
+            }
+            _game.SaveGame();
+            lblPoints.Visibility = Visibility.Visible;
+            pointLabel.Visibility = Visibility.Visible;
+        }
 
+        /// <summary>
+        /// Funkcja cofająca poprzedni ruch użytkownika. Wywołuje się po wciśnięciu przycisku cofnij.
+        /// </summary>
+        /// <param name="sender">Obiekt wywołujący zdarzenie.</param>
+        /// <param name="e">Informacje o zdarzeniu.</param>
+        private void undo_Click(object sender, RoutedEventArgs e)
+        {
+            int index = map.Children.Count - 1;
+            if (index < 0)
+                return;
+            UIElement element = map.Children[index];
+            map.Children.RemoveAt(index);
+            string data = "";
 
+            if (element is Image)
+            {
+                Image img = (Image)element;
+                data = img.Source.ToString();
+                _game.Flags.Add(data);
+            }
+            else
+            {
+                Label label = (Label)element;
+                data = (string)label.Content;
+                _game.Names.Add(data);
+            }
+        }
+
+        /// <summary>
+        /// Nowa gra. Funkcja wywołuje się po wciśnięciu przycisku nowa gra. 
+        /// </summary>
+        /// <param name="sender">Obiekt wywołujący zdarzenie.</param>
+        /// <param name="e">Informacje o zdarzeniu.</param>
+        private void newGame_Click(object sender, RoutedEventArgs e)
+        {
+            btnCheckAnswer.IsEnabled = true;
+            map.AllowDrop = true;
+            map.Children.Clear();
+            _game.NewGame();
+            _game.Points = 0;
+            lblPoints.Visibility = Visibility.Hidden;
+            pointLabel.Visibility = Visibility.Hidden;
+        }
     }
 }
