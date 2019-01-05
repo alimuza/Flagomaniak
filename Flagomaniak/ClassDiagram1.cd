@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Flagomaniak.Continents.Continent">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <AssociationLine Name="_countries" Type="Flagomaniak.Continents.Country">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.692" Y="0.112" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAgAIAAQAAAAAAAAAAAIAQQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Continents\Continent.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="_countries" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Flagomaniak.Continents.ContinentCollection">
+    <Position X="3.75" Y="0.5" Width="2.5" />
+    <AssociationLine Name="_continents" Type="Flagomaniak.Continents.Continent">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.12" Y="0.206" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Continents\ContinentCollection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="_continents" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Flagomaniak.Continents.Country">
+    <Position X="0.5" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAQAAAAIAAAABAAAAAAAQCI=</HashCode>
+      <FileName>Continents\Country.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Flagomaniak.GameBoard.BorderChecker">
+    <Position X="3.75" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>GameBoard\BorderChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Flagomaniak.GameBoard.Game">
+    <Position X="7.5" Y="0.5" Width="3" />
+    <Members>
+      <Field Name="_userCollection" Hidden="true" />
+      <Property Name="Names" Hidden="true" />
+      <Method Name="SaveGame" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAgApACABAAQwAAMoAACACIEhEAAAAABQQIAAAAAAAE=</HashCode>
+      <FileName>GameBoard\Game.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_borderChecker" />
+      <Field Name="_continents" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Flagomaniak.MainWindow">
+    <Position X="11.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAIIAAAIAAAAAABIACAAAAAEBAACAAgAAAAQ=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_game" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
